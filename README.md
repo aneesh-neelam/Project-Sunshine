@@ -1,3 +1,3 @@
 # Project Sunshine
 
-Android App
+A simple weather app for Android.
