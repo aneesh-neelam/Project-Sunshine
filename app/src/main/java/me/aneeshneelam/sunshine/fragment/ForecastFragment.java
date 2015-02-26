@@ -58,7 +58,7 @@ public class ForecastFragment extends Fragment {
                 "Saturday - Dummy Weather",
                 "Sunday - Dummy Weather",
         };
-        new FetchWeatherTask().execute();
+        new FetchWeatherTask().execute("94043");
         List<String> weekForecast = new ArrayList<>(Arrays.asList(dummyForecast));
         ArrayAdapter<String> forecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_forecast_listview_item, R.id.list_item_forecast_textview, weekForecast);
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
