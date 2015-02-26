@@ -22,7 +22,9 @@ import me.aneeshneelam.sunshine.asyncTask.FetchWeatherTask;
  * Created by Aneesh Neelam <neelam.aneesh@gmail.com>
  */
 public class ForecastFragment extends Fragment {
-
+    
+    private ArrayAdapter<String> forecastAdapter;
+    
     public ForecastFragment() {
     }
 
@@ -39,6 +41,7 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_refresh:
+                new FetchWeatherTask(this).execute("500011,IN");
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -58,12 +61,19 @@ public class ForecastFragment extends Fragment {
                 "Saturday - Dummy Weather",
                 "Sunday - Dummy Weather",
         };
-        new FetchWeatherTask().execute("94043");
+        new FetchWeatherTask(this).execute("94043");
         List<String> weekForecast = new ArrayList<>(Arrays.asList(dummyForecast));
-        ArrayAdapter<String> forecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_forecast_listview_item, R.id.list_item_forecast_textview, weekForecast);
+        forecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_forecast_listview_item, R.id.list_item_forecast_textview, weekForecast);
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(forecastAdapter);
 
         return rootView;
+    }
+
+    public void onFetchWeatherTaskComplete (String[] forecastArray) {
+        
+        forecastAdapter.clear();
+        forecastAdapter.addAll(forecastArray);
+        
     }
 }
