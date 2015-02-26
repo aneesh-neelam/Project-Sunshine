@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import me.aneeshneelam.sunshine.R;
-import me.aneeshneelam.sunshine.fragment.PlaceholderFragment;
+import me.aneeshneelam.sunshine.fragment.ForecastFragment;
 
 /**
  * Created by Aneesh Neelam <neelam.aneesh@gmail.com>
@@ -19,7 +19,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new ForecastFragment())
                     .commit();
         }
     }
@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
 
@@ -40,8 +40,11 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_help:
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
