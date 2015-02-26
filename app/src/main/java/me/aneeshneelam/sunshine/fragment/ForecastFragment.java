@@ -52,6 +52,7 @@ public class ForecastFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_forecast, container, false);
         setHasOptionsMenu(true);
+        
         String[] dummyForecast = {
                 "Monday - Dummy Weather",
                 "Tuesday - Dummy Weather",
@@ -61,9 +62,11 @@ public class ForecastFragment extends Fragment {
                 "Saturday - Dummy Weather",
                 "Sunday - Dummy Weather",
         };
-        new FetchWeatherTask(this).execute("94043");
         List<String> weekForecast = new ArrayList<>(Arrays.asList(dummyForecast));
         forecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.fragment_forecast_listview_item, R.id.list_item_forecast_textview, weekForecast);
+
+        new FetchWeatherTask(this).execute("94043");
+        
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(forecastAdapter);
 
