@@ -1,5 +1,6 @@
 package me.aneeshneelam.sunshine.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,13 +12,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import me.aneeshneelam.sunshine.R;
+import me.aneeshneelam.sunshine.activity.DetailActivity;
 import me.aneeshneelam.sunshine.asyncTask.FetchWeatherTask;
 
 /**
@@ -76,7 +77,8 @@ public class ForecastFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = forecastAdapter.getItem(position);
-                Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, item);
+                startActivity(intent);
             }
         });
 
