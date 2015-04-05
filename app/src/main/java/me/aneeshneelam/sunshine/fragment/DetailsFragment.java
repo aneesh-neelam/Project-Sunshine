@@ -16,15 +16,17 @@ public class DetailsFragment extends Fragment {
     private String forecastStr;
 
     public DetailsFragment() {
-        intent = getActivity().getIntent();
-        if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
-            forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        intent = getActivity().getIntent();
+        if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
+            forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         TextView detailTextView = (TextView) rootView.findViewById(R.id.detail_text);
         detailTextView.setText(forecastStr);
