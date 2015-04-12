@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import me.aneeshneelam.sunshine.R;
 
+/**
+ * Created by Aneesh Neelam <neelam.aneesh@gmail.com>
+ */
 public class DetailsFragment extends Fragment {
 
-    Intent intent;
+    private Intent intent;
     private String forecastStr;
 
     public DetailsFragment() {

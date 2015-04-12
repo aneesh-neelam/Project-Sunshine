@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import me.aneeshneelam.sunshine.R;
 import me.aneeshneelam.sunshine.fragment.DetailsFragment;
 
+/**
+ * Created by Aneesh Neelam <neelam.aneesh@gmail.com>
+ */
 public class DetailActivity extends ActionBarActivity {
 
     @Override

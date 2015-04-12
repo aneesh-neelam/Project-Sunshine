@@ -1,7 +1,9 @@
 package me.aneeshneelam.sunshine.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,8 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import me.aneeshneelam.sunshine.R;
 import me.aneeshneelam.sunshine.activity.DetailActivity;
@@ -26,9 +26,16 @@ import me.aneeshneelam.sunshine.asyncTask.FetchWeatherTask;
  */
 public class ForecastFragment extends Fragment {
 
+    private String location;
     private ArrayAdapter<String> forecastAdapter;
 
     public ForecastFragment() {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        refreshWeather();
     }
 
     @Override
@@ -44,7 +51,7 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_refresh:
-                new FetchWeatherTask(this).execute("500011,IN");
+                refreshWeather();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -56,19 +63,7 @@ public class ForecastFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_forecast, container, false);
         setHasOptionsMenu(true);
 
-        String[] dummyForecast = {
-                "Monday - Dummy Weather",
-                "Tuesday - Dummy Weather",
-                "Wednesday - Dummy Weather",
-                "Thursday - Dummy Weather",
-                "Friday - Dummy Weather",
-                "Saturday - Dummy Weather",
-                "Sunday - Dummy Weather",
-        };
-        List<String> weekForecast = new ArrayList<>(Arrays.asList(dummyForecast));
-        forecastAdapter = new ArrayAdapter<>(getActivity(), R.layout.fragment_forecast_listview_item, R.id.list_item_forecast_textview, weekForecast);
-
-        new FetchWeatherTask(this).execute("94043");
+        forecastAdapter = new ArrayAdapter<>(getActivity(), R.layout.fragment_forecast_listview_item, R.id.list_item_forecast_textview, new ArrayList<String>());
 
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(forecastAdapter);
@@ -91,4 +86,11 @@ public class ForecastFragment extends Fragment {
         forecastAdapter.addAll(forecastArray);
 
     }
+
+    private void refreshWeather() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        new FetchWeatherTask(this).execute(location);
+    }
+
 }
