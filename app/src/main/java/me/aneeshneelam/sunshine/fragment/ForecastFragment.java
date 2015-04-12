@@ -26,7 +26,6 @@ import me.aneeshneelam.sunshine.asyncTask.FetchWeatherTask;
  */
 public class ForecastFragment extends Fragment {
 
-    private String location;
     private ArrayAdapter<String> forecastAdapter;
 
     public ForecastFragment() {
@@ -89,7 +88,7 @@ public class ForecastFragment extends Fragment {
 
     private void refreshWeather() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+        String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
         new FetchWeatherTask(this).execute(location);
     }
 
