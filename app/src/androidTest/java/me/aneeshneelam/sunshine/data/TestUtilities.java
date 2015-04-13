@@ -64,7 +64,7 @@ public class TestUtilities extends AndroidTestCase {
         Students: You can uncomment this helper function once you have finished creating the
         LocationEntry part of the WeatherContract.
      */
-    static ContentValues createNorthPoleLocationValues() {
+    static ContentValues createLocationValues() {
         // Create a new map of values, where column names are the keys
         ContentValues testValues = new ContentValues();
         testValues.put(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING, TEST_LOCATION);
@@ -79,19 +79,40 @@ public class TestUtilities extends AndroidTestCase {
         Students: You can uncomment this function once you have finished creating the
         LocationEntry part of the WeatherContract as well as the WeatherDbHelper.
      */
-    static long insertNorthPoleLocationValues(Context context) {
+    static long insertLocationValues(Context context, ContentValues testValues) {
         // insert our test records into the database
         WeatherDbHelper dbHelper = new WeatherDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues testValues = TestUtilities.createNorthPoleLocationValues();
 
         long locationRowId;
         locationRowId = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, testValues);
 
         // Verify we got a row back.
-        assertTrue("Error: Failure to insert North Pole Location Values", locationRowId != -1);
+        assertTrue("Error: Failure to insert Location Values", locationRowId != -1);
+
+        db.close();
 
         return locationRowId;
+    }
+
+    static long insertWeatherValues(Context context, ContentValues testValues) {
+        // insert our test records into the database
+        WeatherDbHelper dbHelper = new WeatherDbHelper(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        long weatherRowId;
+        weatherRowId = db.insert(WeatherContract.WeatherEntry.TABLE_NAME, null, testValues);
+
+        // Verify we got a row back.
+        assertTrue("Error: Failure to insert Weather Values", weatherRowId != -1);
+
+        db.close();
+
+        return weatherRowId;
+    }
+
+    static TestContentObserver getTestContentObserver() {
+        return TestContentObserver.getTestContentObserver();
     }
 
     /*
@@ -105,15 +126,15 @@ public class TestUtilities extends AndroidTestCase {
         final HandlerThread mHT;
         boolean mContentChanged;
 
+        private TestContentObserver(HandlerThread ht) {
+            super(new Handler(ht.getLooper()));
+            mHT = ht;
+        }
+
         static TestContentObserver getTestContentObserver() {
             HandlerThread ht = new HandlerThread("ContentObserverThread");
             ht.start();
             return new TestContentObserver(ht);
-        }
-
-        private TestContentObserver(HandlerThread ht) {
-            super(new Handler(ht.getLooper()));
-            mHT = ht;
         }
 
         // On earlier versions of Android, this onChange method is called
@@ -140,9 +161,5 @@ public class TestUtilities extends AndroidTestCase {
             }.run();
             mHT.quit();
         }
-    }
-
-    static TestContentObserver getTestContentObserver() {
-        return TestContentObserver.getTestContentObserver();
     }
 }
