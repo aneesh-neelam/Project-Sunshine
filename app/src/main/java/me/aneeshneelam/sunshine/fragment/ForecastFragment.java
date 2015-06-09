@@ -79,17 +79,10 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public void onFetchWeatherTaskComplete(String[] forecastArray) {
-
-        forecastAdapter.clear();
-        forecastAdapter.addAll(forecastArray);
-
-    }
-
     private void refreshWeather() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-        new FetchWeatherTask(this).execute(location);
+        new FetchWeatherTask(this.getActivity(), forecastAdapter).execute(location);
     }
 
 }
