@@ -2,7 +2,7 @@ package me.aneeshneelam.sunshine.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,7 +12,7 @@ import me.aneeshneelam.sunshine.fragment.DetailsFragment;
 /**
  * Created by Aneesh Neelam <neelam.aneesh@gmail.com>
  */
-public class DetailActivity extends ActionBarActivity {
+public class DetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
