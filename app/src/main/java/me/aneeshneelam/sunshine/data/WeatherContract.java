@@ -21,7 +21,7 @@ public class WeatherContract {
         return time.setJulianDay(julianDay);
     }
 
-    public static final String CONTENT_AUTHORITY = "com.example.android.sunshine.app";
+    public static final String CONTENT_AUTHORITY = "me.aneeshneelam.sunshine.app";
 
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
